@@ -55,6 +55,9 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-fugitive'
 Plugin 'dense-analysis/ale'
 Plugin 'frazrepo/vim-rainbow'
+
+Plugin 'mattn/emmet-vim'
+
 call vundle#end()
 
 let g:rainbow_active = 1
@@ -267,8 +270,46 @@ let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 
 "Rust config
+
 let g:rustfmt_autosave = 1
-let g:racer_cmd = "/home/user/.cargo/bin/racer"
+let g:racer_cmd = "/home/paulodev/.asdf/installs/rust/1.49.0/bin/racer"
+" let g:racer_cmd="/Users/danirod/.cargo/bin/racer"
+" let g:racer_cmd = expand(g:racer_cmd)
+" let $RUST_SRC_PATH="/usr/local/src/rustc/src"
+let $RUST_SRC_PATH="/home/paulodev/.asdf/installs/rust/1.49.0"
 
 "supertab
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+set wildignore+=**/node_modules,**/bower_components,**/tmp,**/vendor,**/git
+
+let NERDTreeIgnore=['node_modules', 'bower_components', 'tmp', 'vendor', 'git', 'target']
+let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|tmp\|vendor\|DS_Store\|git'
+
+" Emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+let g:user_emmet_leader_key='<C-Z>'
+
+" multi-cursor
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+augroup Racer
+    autocmd!
+    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+    autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+    autocmd FileType rust nmap <buffer> <leader>gD <Plug>(rust-doc-tab)
+augroup END
